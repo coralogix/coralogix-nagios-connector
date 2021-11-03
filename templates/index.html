@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1 class="logo">Coralogix Nagios Alerting Portal</h1>
+      </div>
+    </header>
+    <div class="container">
+      {% for alert in alerts %}
+        <a class="alertline" href="{{ url_for('check_status', alert_name=alert.name)}}">{{ alert.name }}, Status: {{ alert.status }}</a></br>
+      {% endfor %}
+      <!-- {% block content %}
+      {% endblock %} -->
+    </div>
+  </body>
+</html>
