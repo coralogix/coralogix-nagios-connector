@@ -64,12 +64,21 @@ When the coralogix hook is updating it's http endpoint it will respond with 200 
 
 # A what are the options to query the adaptor?
 ```
-/healthcheck #checking if the solutions is alive and listening incoming requests
-/check-alert-status #will require the "alert_name" argument with the alert you wish to get a response to
-/only_triggered_alerts # will generate the payload of the triggered alerts alone
-/resolve_alert # an endpoint to facilitate a forcefull resolution of an alert, will require "alert_name" argument
+#checking if the solutions is alive and listening incoming requests
+/healthcheck
+
+#will require the "alert_name" argument with the alert you wish to get a response to
+/check-alert-status
+
+# will generate the payload of the triggered alerts alone
+/only_triggered_alerts 
+
+# an endpoint to facilitate a forcefull resolution of an alert, will require "alert_name" argument
+# HTTP method is POST
+/resolve_alert 
 
 ```
 
 # Does the solution provide any visual indication or a UI?
-Yes, while rudementry, we do provide a basic "read only" UI to allow better debuggin and easy URL generation.
+Yes.
+While rudementry, we do provide a basic "read only" UI to allow better debugging and easy URL generation.
