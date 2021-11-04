@@ -7,7 +7,7 @@ while [[ "$#" -gt 0 ]]; do
     esac
     shift
 done
-
+##
 [[ ${bucket_name} ]] || exit 1
  
 sudo apt-get update
