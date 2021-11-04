@@ -15,10 +15,10 @@ sudo apt install python3-pip -y
 cd /home/ubuntu/ &&
 cd nagios-alerts-connector
 #replace the bucket name in the service config files
-sed -i "s/tbd/${bucket_name}/" /home/ubuntu/nagios-alerts-connector/nagios-nest.config
+sed -i "s/tbd/${bucket_name}/" /home/ubuntu/coralogix-nagios-connector/nagios-nest.config
 
 pip3 install -r ./requirements.txt
-sudo cp /home/ubuntu/nagios-alerts-connector/service_files/nagios-nest.service /etc/systemd/system/
+sudo cp /home/ubuntu/coralogix-nagios-connector/service_files/nagios-nest.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl start nagios-nest.service
 sudo systemctl enable nagios-nest.service
