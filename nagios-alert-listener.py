@@ -173,7 +173,8 @@ def reset_alert_status(ts = time.time()):
 
     return "Alert status updated", 200
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8888))
-    
-    logging.info("app will run on port:", port)
+    port = int(os.environ.get('PORT', 8080))
+    #
+    print("app will run on port: {}".format(port))
+    print("state s3 bucket: {}".format(bucket_name))
     app.run(host='0.0.0.0', port=port)

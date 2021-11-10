@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 User=ubuntu
-WorkingDirectory=/home/ubuntu/nagios-alerts-connector
-EnvironmentFile=/home/ubuntu/nagios-alerts-connector/nagios-nest.config
+WorkingDirectory=dir1
+EnvironmentFile=dir2/service_files/nagios-nest.config
 ExecStart=/usr/bin/python3 nagios-alert-listener.py
 Restart=always
 
