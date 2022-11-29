@@ -44,7 +44,12 @@ def alert_listener():
         alert['name'] = alert['name'].replace('[RESOLVED] ', '')
 
     alert['last_update_ts'] = ts
-    s3_path = str(alert['name']).replace(' ','_').lower()+'.status'  
+    # using team name if found
+    team_name = ''
+    team_name_list = [obj for obj in alert['fields'] if 'key' in obj and obj['key'] == 'team']
+    if len(team_name_list) > 0 and 'value' in team_name_list[0]:
+        team_name = team_name_list[0]['value']
+    s3_path = team_name + str(alert['name']).replace(' ','_').lower() + '.status'  
     if not key_exists(s3_path):
         alert['alert_first_report'] = ts
     else:
@@ -71,7 +76,11 @@ HTTP 202 is alert resolved
 @app.route("/check-alert-status", methods=['GET'])
 def check_status():
     alert_name = request.args.get('alert_name')
-    s3_path = alert_name.replace(' ','_').lower()+'.status'
+    team_name = ''
+    team_name_list = [obj for obj in alert['fields'] if 'key' in obj and obj['key'] == 'team']
+    if len(team_name_list) > 0 and 'value' in team_name_list[0]:
+        team_name = team_name_list[0]['value']
+    s3_path = team_name + str(alert['name']).replace(' ','_').lower() + '.status'
     print(s3_path)
 
     try:
@@ -154,7 +163,11 @@ def reset_alert_status(ts = time.time()):
                     )
         return "All triggered alerts were reset", 200
     else:
-        s3_path = str(alert_to_reset).replace(' ','_').lower()+'.status'
+        team_name = ''
+        team_name_list = [obj for obj in alert['fields'] if 'key' in obj and obj['key'] == 'team']
+        if len(team_name_list) > 0 and 'value' in team_name_list[0]:
+            team_name = team_name_list[0]['value']
+        s3_path = team_name + str(alert['name']).replace(' ','_').lower() + '.status'
         obj = client.get_object(Bucket=bucket_name, Key=s3_path)
         alert_json = json.loads(obj['Body'].read())
         if alert_json['alert_action'] == 'trigger':
