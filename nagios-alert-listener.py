@@ -75,12 +75,13 @@ HTTP 202 is alert resolved
 
 @app.route("/check-alert-status", methods=['GET'])
 def check_status():
+    print(request.args)
     alert_name = request.args.get('alert_name')
-    team_name = ''
-    team_name_list = [obj for obj in alert['fields'] if 'key' in obj and obj['key'] == 'team']
-    if len(team_name_list) > 0 and 'value' in team_name_list[0]:
-        team_name = team_name_list[0]['value']
-    s3_path = team_name + str(alert['name']).replace(' ','_').lower() + '.status'
+    team_name = request.args.get('team_name')
+#    team_name_list = [obj for obj in alert['fields'] if 'key' in obj and obj['key'] == 'team']
+#    if len(team_name_list) > 0 and 'value' in team_name_list[0]:
+#        team_name = team_name_list[0]['value']
+    s3_path = team_name + alert_name.replace(' ','_').lower() + '.status'
     print(s3_path)
 
     try:
